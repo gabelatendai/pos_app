@@ -17,7 +17,7 @@ class _SupportScreenState extends State<SupportScreen> {
       "id": 2,
       "question": "This is question 2",
       "answer": "This is the answer 2",
-    },
+    },/**/
     {
       "id": 3,
       "question": "This is question 3",
@@ -69,11 +69,7 @@ class _SupportScreenState extends State<SupportScreen> {
         title: Text("Support"),
       ),
       drawer: DrawerWidget(),
-      body: _currentIndex == 0
-          ? Faqs(
-              faqs: faqs,
-            )
-          : _currentIndex == 1
+      body:  _currentIndex == 1
               ? Message()
               : Container(
                   alignment: Alignment.center,
@@ -89,10 +85,6 @@ class _SupportScreenState extends State<SupportScreen> {
         },
         items: [
           BottomNavigationBarItem(
-            icon: new Icon(Icons.question_answer),
-            title: new Text('FAQs'),
-          ),
-          BottomNavigationBarItem(
             icon: new Icon(Icons.mail),
             title: new Text('Messages'),
           ),
@@ -105,30 +97,6 @@ class _SupportScreenState extends State<SupportScreen> {
     );
   }
 }
-
-class Faqs extends StatelessWidget {
-  final List faqs;
-
-  const Faqs({Key key, this.faqs}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: faqs.length,
-      itemBuilder: (context, index) {
-        return Card(
-          child: ListTile(
-            leading: Icon(Icons.help_outline),
-            title: Text('${faqs[index]['question']}'),
-            subtitle: Text('${faqs[index]['answer']}'),
-            trailing: Icon(Icons.arrow_forward_ios),
-          ),
-        );
-      },
-    );
-  }
-}
-
 class Message extends StatefulWidget {
   @override
   _MessageState createState() => _MessageState();

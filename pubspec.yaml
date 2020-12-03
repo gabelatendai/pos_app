@@ -24,6 +24,7 @@ dependencies:
   flutter:
     sdk: flutter
   auto_size_text: ^2.1.0
+  flutter_speed_dial: ^1.2.5
   flutter_barcode_scanner:
   http: ^0.12.0+4
   nb_utils: 3.1.6+7
@@ -32,11 +33,24 @@ dependencies:
   google_fonts: ^1.0.0
   responsive_table: ^0.1.1+8
   get:
+  flutter_pdfview: ^1.0.3+6
   cloud_firestore:
   firebase_core:
   crossplat_objectid: ^2.1.4
   cached_network_image: 2.2.0+1
   badges: ^1.1.4
+  syncfusion_flutter_pdf: ^18.3.44-beta
+  open_file: ^3.0.1
+  path_provider: ^1.6.5
+  pdf: ^1.3.24
+  flutter_full_pdf_viewer: ^1.0.6
+  printing:
+  flutter_bloc: ^3.1.0
+  url_launcher:
+  intl:
+  firebase_storage:
+  image_picker:
+#  image:
 
 
 

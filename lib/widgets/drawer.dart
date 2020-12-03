@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:package_info/package_info.dart';
+import 'package:pos_app/screens/item/master_item.dart';
 
 class DrawerWidget extends StatefulWidget {
   @override
@@ -70,6 +71,10 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                   leading: Icon(Icons.receipt),
                   title: Text("Receipts"),
                   onTap: () => Navigator.of(context).pushNamed('/receipts'),
+                ),ListTile(
+                  leading: Icon(Icons.receipt),
+                  title: Text("PDF"),
+                  onTap: () => Navigator.of(context).pushNamed('/charge'),
                 ),
                 Divider(
                   height: 1,
@@ -81,11 +86,22 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                 ),
                 Divider(
                   height: 1,
+                ),ListTile(
+                  leading: Icon(Icons.menu),
+                  title: Text("Products"),
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ExampleScreen()),
+                  ),
+                ),
+                Divider(
+                  height: 1,
                 ),
                 ListTile(
                   leading: Icon(Icons.favorite),
                   title: Text("Feedback"),
-                  onTap: () => print("object"),
+                  onTap: () => {}
+                      // Navigator.of(context).pushNamed('/data'),
                 ),
                 Divider(
                   height: 1,

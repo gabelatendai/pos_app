@@ -17,6 +17,7 @@ class _ItemScreenState extends State<ItemScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final orientation = MediaQuery.of(context).orientation;
     return Scaffold(
       appBar: AppBar(
         title: Text("Items"),
@@ -47,53 +48,94 @@ class _ItemScreenState extends State<ItemScreen> {
                           );
                           //child: Products(),
                         }else{
-                          return  ListView.separated(
+                          return  GridView.builder(
                               primary: false,
                               shrinkWrap: true,
                               itemCount:snapshot.data.length,
-
+                              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: (orientation == Orientation.portrait) ? 2 : 3),
                               itemBuilder: (BuildContext context, int index) {
                                 Products products= snapshot.data[index];
                                 // double rate =double.parse(products.exchangeRate);
-                                return  Column(
-                                  children: [
-                                    // removeCartFunction==null
-                                // ?
-                                    IconButton(icon: Icon(Icons.add_shopping_cart),
-                                        onPressed: (){
-                                      checkItemInCart(products.productId,context);
-                                        }),
-                                  // :
-                                IconButton(icon: Icon(Icons.remove_shopping_cart), onPressed: null),
-                                    Card(
-                                      child: InkWell(
-                                        onTap: ()=>{
-                                        Navigator.push(
-                                        context,
-                                        MaterialPageRoute(builder: (context) =>
-                                            ProductDescription(status: null, picture:'https://weddinghub.co.zw/img/${products.picture}',
-                                              qty: null, price: products.price, stockGroup: null,
-                                        company: null, costing: null, category: products.category, branch: null, minimumLevel: null,
-                                        ratioQnty: null, purchaseAcount: null, productId: null, tax: null, addon: null,
-                                        fqty: null, productDescrip: products.productDescrip, salesAcc: null, addedby: null, id: null,
-                                        reorderLevel: null, shareStock: null, typ: null, productCode: null,
-                                        siUnit: null, tqty: null,),
-                                        ))
-                                        },
-                                        child: ListTile(
-                                          leading:
-                                          Image.network('https://weddinghub.co.zw/img/${products.picture}'),
-                                          title: Text('${products.productDescrip}'),
-                                          subtitle:
-                                          Text('${products.category}'),
-                                          trailing: Text('\$${products.price}'),
+                                return  Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: InkWell(
+                                    splashColor: Colors.yellow,
+                                    // onDoubleTap: () => showSnackBar(),
+                                    child: Material(
+                                      clipBehavior: Clip.antiAlias,
+                                      elevation: 2.0,
+                                      child: Stack(
+                                        fit: StackFit.expand,
+                                        children: <Widget>[
+                                          Image.network(
+                                            "https://weddinghub.co.zw/img/${products.picture}",
+                                            fit: BoxFit.cover,
+                                          ),
+                                      Positioned(
+                                      bottom: 0.0,
+                                      left: 0.0,
+                                      right: 0.0,
+                                      child: Container(
+                                        decoration: BoxDecoration(color: Colors.black.withOpacity(0.5)),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: <Widget>[
+                                              Expanded(
+                                                child: Text(
+                                                  products.productDescrip,
+                                                  softWrap: true,
+                                                  overflow: TextOverflow.ellipsis,
+                                                  style: TextStyle(color: Colors.white),
+                                                ),
+                                              ),
+                                              Text("\$${products.price}",
+                                                  style: TextStyle(
+                                                      color: Colors.yellow,
+                                                      fontSize: 18.0,
+                                                      fontWeight: FontWeight.bold))
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ],
+                                          Positioned(
+                                            top: 0.0,
+                                            left: 0.0,
+                                            child: Container(
+                                              padding: EdgeInsets.all(4.0),
+                                              decoration: BoxDecoration(
+                                                  color: Colors.black.withOpacity(0.9),
+                                                  borderRadius: BorderRadius.only(
+                                                      topRight: Radius.circular(10.0),
+                                                      bottomRight: Radius.circular(10.0))),
+                                              child: Row(
+                                                children: <Widget>[
+                                                  Icon(
+                                                    Icons.star,
+                                                    color: Colors.cyanAccent,
+                                                    size: 10.0,
+                                                  ),
+                                                  SizedBox(
+                                                    width: 2.0,
+                                                  ),
+                                                  Text(
+                                                    5.toString(),
+                                                    style: TextStyle(color: Colors.white, fontSize: 10.0),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
                                 );
 
-                              }, separatorBuilder: (context, index) => Divider(),);
+                              });
                         }
                       }
                   ),

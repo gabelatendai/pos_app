@@ -60,4 +60,19 @@ class Cart{
     this._qnty = map['qnty'];
 
   }
+String getIndex(int index) {
+  switch (index) {
+    case 0:
+      return _id;
+    case 1:
+      return _title;
+    case 2:
+      return _price.toString();
+    case 3:
+      return _qnty.toString();
+    case 4:
+      return _subtotal.toString();
+  }
+  return '';
+}
 }

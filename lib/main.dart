@@ -1,5 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get_navigation/src/root/root_widget.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:pos_app/screens/Items.dart';
@@ -17,11 +19,16 @@ import './screens/receipts.dart';
 import './screens/support.dart';
 import './screens/settings.dart';
 import './screens/profile.dart';
+import 'bloc/food_bloc.dart';
+import 'bloc/food_bloc_delegate.dart';
+import 'controllers/pdfhome.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-await Firebase.initializeApp();
-runApp(MyApp());
+  BlocSupervisor.delegate = FoodBlocDelegate();
+  debugDefaultTargetPlatformOverride = TargetPlatform.fuchsia;
+  await Firebase.initializeApp();
+  runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -43,7 +50,9 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
+    return BlocProvider<FoodBloc>(
+      create: (context) => FoodBloc(),
+   child:   GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: ' POS',
       theme: ThemeData(
@@ -74,14 +83,16 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: '/forget', page: () => ForgetPasswordScreen()),
         GetPage(name: '/home', page: () => HomeScreen()),
         GetPage(name: '/profile', page: () => ProfileScreen()),
-        GetPage(name: '/charge', page: () => ChargeScreen()),
+        // GetPage(name: '/charge', page: () => MyPage()),
         GetPage(name: '/items', page: () => ItemScreen()),
         GetPage(name: '/receipts', page: () => ReceiptScreen()),
         GetPage(name: '/singleproduct', page: () => SingleProductScreen()),
         GetPage(name: '/support', page: () => SupportScreen()),
-        GetPage(name: '/settings', page: () =>SettingScreen()),
-        GetPage(name: '/error', page: () =>ErrorScreen()),
+        GetPage(name: '/settings', page: () => SettingScreen()),
+        GetPage(name: '/error', page: () => ErrorScreen()),
+        // GetPage(name: '/pdf', page: () =>PDF()),
+        GetPage(name: '/data', page: () => PdfHome()),
       ],
-    );
+    ) );
   }
 }
